@@ -8,6 +8,7 @@ export default class Game {
 
         this.mainAudio
         this.pewAudio
+        this.goAudio
         this.scoreDiv
 
         this.createBoard()
@@ -52,7 +53,6 @@ export default class Game {
         this.mainAudio = new Audio("./assets/sounds/zombie-moans.mp3")
         this.mainAudio.loop = true
         this.mainAudio.play()
-        this.pewAudio = new Audio("./assets/sounds/pew-pew.mp3")
     }
 
     handleClick(e) {
@@ -64,7 +64,8 @@ export default class Game {
         } else {
             this.points -= 3
         }
-        this.pewAudio.play()
+        let pewAudio = new Audio("./assets/sounds/pew-pew.mp3")
+        pewAudio.play()
         this.scoreDiv.innerText = this.points
     }
 
@@ -91,5 +92,8 @@ export default class Game {
         let play = document.getElementById("play")
         play.innerText = "PLAY AGAIN"
         play.classList.remove("hidden")
+
+        this.goAudio = new Audio("./assets/sounds/game-over.mp3")
+        this.goAudio.play()
     }
 }
