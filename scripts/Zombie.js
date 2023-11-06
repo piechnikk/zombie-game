@@ -1,20 +1,21 @@
 export default class Zombie {
     constructor(app, liveLoss) {
-        this.liveLoss = liveLoss
-        this.scale = Math.floor(Math.random() * 5) / 5 + 1
+        this.liveLoss = liveLoss // function that handle live loss
 
+        this.scale = Math.floor(Math.random() * 5) / 5 + 1
         this.width = 10 * this.scale
         this.height = 15.6 * this.scale
 
+        // actual position
         this.x = -10 - this.scale * 3
         this.y = 15 - this.scale * 8
 
-        this.bgPos = 0
         this.speed = (Math.random() * 5) / 10 + 0.1
 
+        // create zombie html element
         this.image = document.createElement("div")
-        app.appendChild(this.image)
         this.image.classList.add("zombie")
+        app.appendChild(this.image)
 
         this.image.style.zIndex = this.scale * 5
         this.image.style.right = this.x + "vw"
@@ -22,12 +23,16 @@ export default class Zombie {
         this.image.style.width = this.width + "vw"
         this.image.style.height = this.height + "vw"
 
+        // start move
         this.animation = setInterval(this.move.bind(this), 50)
     }
 
     move() {
+        // move zombie
         this.x += this.speed
         this.image.style.right = this.x + "vw"
+
+        // zombie hit endpoint
         if (this.image.offsetLeft < 0) {
             app.removeChild(this.image)
             this.liveLoss()
