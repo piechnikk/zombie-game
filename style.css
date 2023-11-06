@@ -1,22 +1,32 @@
+@font-face {
+    font-family: emulogic;
+    src: url(./assets/fonts/emulogic.ttf) format("opentype");
+}
+
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: emulogic;
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #333;
     color: #fff;
 }
 
+body>* {
+    margin: 2vw;
+}
+
 #app {
     width: 72vw;
     height: 45vw;
-    background-image: url("./images/board-bg.jpg");
+    background-image: url("./assets/images/board-bg.jpg");
     background-size: 100%;
-    cursor: url("./images/aims.png") 64 64, auto;
+    cursor: url("./assets/images/aims.png") 64 64, auto;
     position: relative;
     overflow: hidden;
 }
@@ -44,15 +54,26 @@ body {
 
 .zombie {
     position: absolute;
-    background-image: url("./images/walkingdead.png");
+    background-image: url("./assets/images/walkingdead.png");
     background-size: cover;
     animation: play 0.6s steps(9) infinite;
 }
 
-#play {
-    position: absolute;
-}
-
 .hidden {
     display: none;
+}
+
+button {
+    padding: 2vw;
+    font-size: 2vw;
+    font-family: emulogic;
+    color: #fff;
+    background-color: #50a;
+    border-radius: 1vw;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+
+#go {
+    font-size: 5vw;
 }

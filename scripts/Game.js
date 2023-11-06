@@ -26,15 +26,15 @@ export default class Game {
         lives.id = "lives"
 
         let heart1 = document.createElement("img")
-        heart1.src = "./images/full_heart.png"
+        heart1.src = "./assets/images/full_heart.png"
         lives.appendChild(heart1)
 
         let heart2 = document.createElement("img")
-        heart2.src = "./images/full_heart.png"
+        heart2.src = "./assets/images/full_heart.png"
         lives.appendChild(heart2)
 
         let heart3 = document.createElement("img")
-        heart3.src = "./images/full_heart.png"
+        heart3.src = "./assets/images/full_heart.png"
         lives.appendChild(heart3)
 
         topbar.appendChild(lives)
@@ -73,6 +73,13 @@ export default class Game {
         clearInterval(this.zombieCreator)
         this.app.removeEventListener("click", this.handleClick.bind(this))
         document.body.removeChild(this.app)
+
+        document.getElementById("go").classList.remove("hidden")
+
+        let finalScore = document.getElementById("finalScore")
+        finalScore.classList.remove("hidden")
+        finalScore.innerText = "Your score: " + this.points
+
         let play = document.getElementById("play")
         play.innerText = "PLAY AGAIN"
         play.classList.remove("hidden")
