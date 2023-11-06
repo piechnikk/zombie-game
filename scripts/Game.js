@@ -6,6 +6,8 @@ export default class Game {
         this.points = 30
         this.lives = 3
 
+        this.mainAudio
+        this.pewAudio
         this.scoreDiv
 
         this.createBoard()
@@ -43,29 +45,34 @@ export default class Game {
         this.scoreDiv = score
         score.id = "score"
         score.innerText = this.points
+
         topbar.appendChild(score)
         this.app.appendChild(topbar)
+
+        this.mainAudio = new Audio("./assets/sounds/zombie-moans.mp3")
+        this.mainAudio.loop = true
+        this.mainAudio.play()
+        this.pewAudio = new Audio("./assets/sounds/pew-pew.mp3")
     }
 
     handleClick(e) {
-        if (this.points <= 0) {
-            return
-        }
+        if (this.points <= 0) return
+
         if (e.target.classList.contains("zombie")) {
             this.points += 10
             this.app.removeChild(e.target)
         } else {
             this.points -= 3
         }
+        this.pewAudio.play()
         this.scoreDiv.innerText = this.points
     }
 
     liveLoss() {
         this.lives--
         document.getElementById("lives").children[this.lives].src = "./assets/images/empty_heart.png"
-        if (this.lives == 0) {
-            this.gameOver()
-        }
+
+        if (this.lives == 0) this.gameOver()
     }
 
 
@@ -73,6 +80,7 @@ export default class Game {
         clearInterval(this.zombieCreator)
         this.app.removeEventListener("click", this.handleClick.bind(this))
         document.body.removeChild(this.app)
+        this.mainAudio.pause()
 
         document.getElementById("go").classList.remove("hidden")
 
