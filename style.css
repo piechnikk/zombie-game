@@ -39,6 +39,7 @@ body>* {
 
 #topBar img {
     width: 5vw;
+    margin-right: 1vw;
 }
 
 #topBar p {

@@ -48,6 +48,9 @@ export default class Game {
     }
 
     handleClick(e) {
+        if (this.points <= 0) {
+            return
+        }
         if (e.target.classList.contains("zombie")) {
             this.points += 10
             this.app.removeChild(e.target)
@@ -55,14 +58,11 @@ export default class Game {
             this.points -= 3
         }
         this.scoreDiv.innerText = this.points
-        if (this.points <= 0) {
-            this.gameOver()
-        }
     }
 
     liveLoss() {
         this.lives--
-        document.getElementById("lives").children[this.lives].src = "./images/empty_heart.png"
+        document.getElementById("lives").children[this.lives].src = "./assets/images/empty_heart.png"
         if (this.lives == 0) {
             this.gameOver()
         }
