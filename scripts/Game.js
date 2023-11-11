@@ -15,8 +15,9 @@ export default class Game {
         this.createBoard()
 
         // start new zombies creation
-        new Zombie(this.app, this.liveLoss.bind(this))
-        this.zombieCreator = setInterval(() => { new Zombie(this.app, this.liveLoss.bind(this)) }, 3000)
+        this.zombieGenerator()
+        this.zombieTimer
+        this.interval = 2000
     }
 
     createBoard() {
@@ -65,7 +66,7 @@ export default class Game {
 
     handleClick(e) {
         // out of ammo
-        if (this.points <= 0) return
+        if (this.points < 3) return
 
         // recognizing target
         if (e.target.classList.contains("zombie")) {
@@ -84,6 +85,9 @@ export default class Game {
     }
 
     liveLoss() {
+        let oofAudio = new Audio("./assets/sounds/oof.mp3")
+        oofAudio.play()
+
         this.lives--
 
         // heart emptying
@@ -95,7 +99,7 @@ export default class Game {
 
     gameOver() {
         // stop new zombies
-        clearInterval(this.zombieCreator)
+        clearTimeout(this.zombieTimer)
 
         // remove click handler
         this.app.removeEventListener("click", this.handleClick.bind(this))
@@ -121,6 +125,12 @@ export default class Game {
 
         // start game over audio
         this.goAudio = new Audio("./assets/sounds/game-over.mp3")
-        this.goAudio.play()
+        setTimeout(() => { this.goAudio.play() }, 100)
+    }
+
+    zombieGenerator() {
+        new Zombie(this.app, this.liveLoss.bind(this))
+        if (this.interval > 800) { this.interval -= 20 }
+        this.zombieTimer = setTimeout(this.zombieGenerator.bind(this), this.interval)
     }
 }

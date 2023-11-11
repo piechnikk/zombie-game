@@ -10,7 +10,7 @@ export default class Zombie {
         this.x = -10 - this.scale * 3
         this.y = 15 - this.scale * 8
 
-        this.speed = (Math.random() * 5) / 10 + 0.1
+        this.speed = (Math.random() * 5) / 20 + 0.2
 
         // create zombie html element
         this.image = document.createElement("div")
@@ -24,7 +24,7 @@ export default class Zombie {
         this.image.style.height = this.height + "vw"
 
         // start move
-        this.animation = setInterval(this.move.bind(this), 50)
+        this.animation = setInterval(this.move.bind(this), 25)
     }
 
     move() {
@@ -36,6 +36,7 @@ export default class Zombie {
         if (this.image.offsetLeft < 0) {
             app.removeChild(this.image)
             this.liveLoss()
+            clearInterval(this.animation)
         }
     }
 }
